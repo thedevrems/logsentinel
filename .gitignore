@@ -1,0 +1,38 @@
+# Dependencies
+node_modules/
+.pnp/
+.pnp.js
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Build output
+dist/
+build/
+client/dist/
+
+# Real logs (never commit production logs)
+*.log
+logs/
+!sample-logs/*.log
+
+# GeoIP database (downloaded locally, not versioned)
+data/geoip/*.mmdb
+
+# Generated reports
+reports/*.pdf
+
+# Tooling / editor local state
+.claude/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# Coverage
+coverage/

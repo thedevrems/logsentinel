@@ -1,0 +1,10 @@
+2026-07-10T08:15:00.120Z INFO api Request received method=GET path=/api/orders userId=1042
+2026-07-10T08:15:00.340Z INFO db Query executed table=orders duration_ms=12
+2026-07-10T08:15:01.010Z WARN cache Cache miss key=orders:1042
+2026-07-10T08:15:02.500Z ERROR api Unhandled exception path=/api/orders message=connection_refused
+2026-07-10T08:15:03.220Z ERROR db Connection pool exhausted active=20 idle=0
+2026-07-10T08:15:04.900Z INFO auth Login success userId=1042 ip=203.0.113.10
+2026-07-10T08:15:05.400Z WARN auth Login failed userId=unknown ip=198.51.100.23 reason=bad_password
+2026-07-10T08:15:06.100Z ERROR payment Charge failed orderId=8890 provider=stripe code=card_declined
+2026-07-10T08:15:07.750Z INFO api Request completed method=POST path=/api/login status=200 duration_ms=88
+2026-07-10T08:15:09.000Z DEBUG scheduler Job started name=cleanup_sessions
