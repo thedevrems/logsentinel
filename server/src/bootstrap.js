@@ -9,6 +9,7 @@ import { createIngestionManager } from './ingestion/ingestionManager.js';
 import { createLogPipeline } from './pipeline/logPipeline.js';
 import { startMetricsBroadcaster } from './websocket/metricsBroadcaster.js';
 import { startAdaptiveMonitor } from './detection/adaptiveMonitor.js';
+import { createWebhookNotifier } from './notifications/webhookNotifier.js';
 
 // Wires ingestion, pipeline, metrics broadcasting and starts reading sources.
 async function startDataPlane(wsHub, alertBus, onLog) {
@@ -27,6 +28,7 @@ export async function bootstrap({ buildOnLog } = {}) {
   const server = http.createServer();
   const wsHub = createWsHub(server);
   const alertBus = createAlertBus(wsHub);
+  alertBus.onAlert(createWebhookNotifier(config));
   const app = createApp({ wsHub, alertBus });
   server.on('request', app);
   const onLog = buildOnLog ? buildOnLog({ alertBus }) : undefined;
