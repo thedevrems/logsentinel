@@ -16,7 +16,7 @@ export default function AlertsPanel({ alerts }) {
             <span className="badge" style={{ background: severityColors[alert.severity] || theme.muted }}>
               {alert.severity}
             </span>
-            <span className="alert-type">{alert.type}</span>
+            <span className="alert-type">{alert.type}{alert.geo?.country ? ` · ${alert.geo.country}` : ''}</span>
             <span className="alert-detail" style={{ color: theme.muted }}>{alert.message}</span>
             <span className="alert-time" style={{ color: theme.muted }}>{formatTime(alert.timestamp)}</span>
           </li>
