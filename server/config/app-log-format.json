@@ -1,0 +1,7 @@
+{
+  "pattern": "^(?<timestamp>\\S+) (?<level>\\w+) (?<logger>\\S+) (?<message>.*)$",
+  "levelField": "level",
+  "timestampField": "timestamp",
+  "messageField": "message",
+  "extractKeyValues": true
+}
