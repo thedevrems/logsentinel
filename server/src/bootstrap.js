@@ -8,13 +8,15 @@ import { createBatchWriter } from './db/batchWriter.js';
 import { createIngestionManager } from './ingestion/ingestionManager.js';
 import { createLogPipeline } from './pipeline/logPipeline.js';
 import { startMetricsBroadcaster } from './websocket/metricsBroadcaster.js';
+import { startAdaptiveMonitor } from './detection/adaptiveMonitor.js';
 
 // Wires ingestion, pipeline, metrics broadcasting and starts reading sources.
-async function startDataPlane(wsHub, onLog) {
+async function startDataPlane(wsHub, alertBus, onLog) {
   const batchWriter = createBatchWriter(config);
   const ingestion = createIngestionManager(config);
   const pipeline = createLogPipeline({ queue: ingestion.queue, batchWriter, onLog });
   startMetricsBroadcaster(wsHub, config.metricsWindowSec);
+  startAdaptiveMonitor(alertBus, config);
   await ingestion.start();
   await pipeline.drain();
   return { batchWriter };
@@ -31,6 +33,6 @@ export async function bootstrap({ buildOnLog } = {}) {
   server.listen(config.port, config.host, () => {
     logger.info('logsentinel server listening', { port: config.port, host: config.host });
   });
-  await startDataPlane(wsHub, onLog);
+  await startDataPlane(wsHub, alertBus, onLog);
   return { server, wsHub, alertBus };
 }
