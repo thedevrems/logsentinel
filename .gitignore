@@ -24,9 +24,6 @@ data/geoip/*.mmdb
 # Generated reports
 reports/*.pdf
 
-# Tooling / editor local state
-.claude/
-
 # OS / editor
 .DS_Store
 Thumbs.db
